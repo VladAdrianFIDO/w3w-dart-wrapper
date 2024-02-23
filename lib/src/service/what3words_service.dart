@@ -19,12 +19,10 @@ abstract class What3WordsV3Service extends ChopperService {
 
   @Get(path: 'convert-to-3wa')
   Future<Response<Location>> convertTo3wa(
-      @Query('coordinates') String coordinates,
-      @Query('language') String? language);
+      @Query('coordinates') String coordinates, @Query('language') String? language);
 
   @Get(path: 'grid-section')
-  Future<Response<GridSection>> gridSection(
-      @Query('bounding-box') String boundingBox);
+  Future<Response<GridSection>> gridSection(@Query('bounding-box') String boundingBox);
 
   @Get(path: 'autosuggest')
   Future<Response<Autosuggest>> autosuggest(
@@ -71,15 +69,10 @@ abstract class What3WordsV3Service extends ChopperService {
       @Query('language') String lang,
       @Query('prefer-land') String preferLand);
 
-
-  static What3WordsV3Service create(
-      String? apiKey, String endpoint, Map<String, String>? headers) {
+  static What3WordsV3Service create(String? apiKey, String endpoint, Map<String, String>? headers) {
     final client = ChopperClient(
-        baseUrl: endpoint,
-        interceptors: [
-          HeaderInterceptor(apiKey, headers),
-          HttpLoggingInterceptor()
-        ],
+        baseUrl: Uri.parse(endpoint),
+        interceptors: [HeaderInterceptor(apiKey, headers), HttpLoggingInterceptor()],
         errorConverter: JsonConverter(),
         services: [
           _$What3WordsV3Service(),

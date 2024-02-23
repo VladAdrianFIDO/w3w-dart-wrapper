@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 
 import 'package:test/test.dart';
-import 'package:what3words/src/request/autosuggest_options.dart';
 import 'package:what3words/what3words.dart';
 
 void main() {
@@ -9,8 +8,7 @@ void main() {
 
   test('testValidFocus', () async {
     var options = AutosuggestOptions().setFocus(Coordinates(51.2, 0.2));
-    var autosuggest =
-        await api.autosuggest('index.home.ra', options: options).execute();
+    var autosuggest = await api.autosuggest('index.home.ra', options: options).execute();
     expect(autosuggest.isSuccessful(), true);
 
     var suggestions = autosuggest.data()!.suggestions;
@@ -26,8 +24,7 @@ void main() {
 
   test('testFocusLatitudeTooBig', () async {
     var options = AutosuggestOptions().setFocus(Coordinates(151.2, 0.2));
-    var autosuggest =
-        await api.autosuggest('index.home.ra', options: options).execute();
+    var autosuggest = await api.autosuggest('index.home.ra', options: options).execute();
     expect(autosuggest.isSuccessful(), false);
 
     var error = autosuggest.error();
@@ -36,8 +33,7 @@ void main() {
 
   test('testFocusLatitudeTooSmall', () async {
     var options = AutosuggestOptions().setFocus(Coordinates(-151.2, 0.2));
-    var autosuggest =
-        await api.autosuggest('index.home.ra', options: options).execute();
+    var autosuggest = await api.autosuggest('index.home.ra', options: options).execute();
     expect(autosuggest.isSuccessful(), false);
 
     var error = autosuggest.error();
@@ -47,8 +43,7 @@ void main() {
   test('testFocusBigLongitude', () async {
     var options = AutosuggestOptions().setFocus(Coordinates(51.2, 360.2));
 
-    var autosuggest =
-        await api.autosuggest('index.home.ra', options: options).execute();
+    var autosuggest = await api.autosuggest('index.home.ra', options: options).execute();
     expect(autosuggest.isSuccessful(), true);
 
     var suggestions = autosuggest.data()!.suggestions;
@@ -65,9 +60,7 @@ void main() {
   test('testFocusSmallLongitude', () async {
     var options = AutosuggestOptions().setFocus(Coordinates(51.2, -360));
 
-    var autosuggest = await api
-        .autosuggest('index.home.ra', options: options)
-        .execute();
+    var autosuggest = await api.autosuggest('index.home.ra', options: options).execute();
     expect(autosuggest.isSuccessful(), true);
 
     var suggestions = autosuggest.data()!.suggestions;

@@ -40,9 +40,7 @@ class _AutoSuggestionPageState extends State<AutoSuggestionPage> {
 
   void _changeMapType() {
     setState(() {
-      _defaultMapType = _defaultMapType == MapType.normal
-          ? MapType.satellite
-          : MapType.normal;
+      _defaultMapType = _defaultMapType == MapType.normal ? MapType.satellite : MapType.normal;
     });
   }
 
@@ -50,8 +48,7 @@ class _AutoSuggestionPageState extends State<AutoSuggestionPage> {
     setState(() {
       _markers.clear();
       _markers.add(Marker(
-        markerId:
-            MarkerId((mTitle + "_" + _markers.length.toString()).toString()),
+        markerId: MarkerId((mTitle + "_" + _markers.length.toString()).toString()),
         position: mLatLng,
         infoWindow: InfoWindow(
           title: mTitle,
@@ -64,10 +61,8 @@ class _AutoSuggestionPageState extends State<AutoSuggestionPage> {
 
   Future<void> suggestLocations() async {
     _visible = false;
-    final autosuggest = await api
-        .autosuggest(_twaController.text,
-            options: AutosuggestOptions().setNResults(3))
-        .execute();
+    final autosuggest =
+        await api.autosuggest(_twaController.text, options: AutosuggestOptions().setNResults(3)).execute();
 
     if (autosuggest.isSuccessful()) {
       // print('Autosuggest: ${autosuggest.data()?.toJson()}');
@@ -79,8 +74,7 @@ class _AutoSuggestionPageState extends State<AutoSuggestionPage> {
           var suggestedWord = suggestion['words'];
           setState(() {
             _visible = true;
-            suggestedWordList.add(
-                suggestedWord); // country, nearestPlace, distanceToFocusKm, rank, language
+            suggestedWordList.add(suggestedWord); // country, nearestPlace, distanceToFocusKm, rank, language
           });
         }
         print(suggestedWordList);
@@ -114,8 +108,7 @@ class _AutoSuggestionPageState extends State<AutoSuggestionPage> {
   }
 
   Future<void> covertToCoordinates() async {
-    final location =
-        await api.convertToCoordinates(_twaController.text).execute();
+    final location = await api.convertToCoordinates(_twaController.text).execute();
     setState(() {
       _markers.clear();
 
@@ -127,12 +120,10 @@ class _AutoSuggestionPageState extends State<AutoSuggestionPage> {
         String mTitle = '///${location.data()?.words}';
         String mDescription =
             'Coordinates: ${location.data()?.coordinates.lat}, ${location.data()?.coordinates.lng},\nNearest Place: ${location.data()?.nearestPlace}';
-        twaHolder =
-            '${location.data()?.coordinates.lat}, ${location.data()?.coordinates.lng}';
+        twaHolder = '${location.data()?.coordinates.lat}, ${location.data()?.coordinates.lng}';
         // print(twaHolder);
         addMarker(mLatLng, mTitle, mDescription);
-        mapController.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(target: mLatLng, zoom: 17)));
+        mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: mLatLng, zoom: 17)));
       } else {
         twaHolder = '${location.error()?.code}: ${location.error()?.message}';
         // print(twaHolder);
@@ -153,8 +144,7 @@ class _AutoSuggestionPageState extends State<AutoSuggestionPage> {
   }
 
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-    onPrimary: Colors.blue,
-    primary: Colors.blue[100],
+    foregroundColor: Colors.blue,
     minimumSize: const Size(58, 58),
     padding: const EdgeInsets.symmetric(horizontal: 10),
   );

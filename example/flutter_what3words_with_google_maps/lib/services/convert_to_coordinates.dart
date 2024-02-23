@@ -23,9 +23,7 @@ class _ConvertToCoordinatesPageState extends State<ConvertToCoordinatesPage> {
 
   void _changeMapType() {
     setState(() {
-      _defaultMapType = _defaultMapType == MapType.normal
-          ? MapType.satellite
-          : MapType.normal;
+      _defaultMapType = _defaultMapType == MapType.normal ? MapType.satellite : MapType.normal;
     });
   }
 
@@ -48,8 +46,7 @@ class _ConvertToCoordinatesPageState extends State<ConvertToCoordinatesPage> {
     setState(() {
       _markers.clear();
       _markers.add(Marker(
-        markerId:
-            MarkerId((mTitle + "_" + _markers.length.toString()).toString()),
+        markerId: MarkerId((mTitle + "_" + _markers.length.toString()).toString()),
         position: mLatLng,
         infoWindow: InfoWindow(
           title: mTitle,
@@ -61,8 +58,7 @@ class _ConvertToCoordinatesPageState extends State<ConvertToCoordinatesPage> {
   }
 
   Future<void> covertToCoordinates() async {
-    final location =
-        await api.convertToCoordinates(_twaController.text).execute();
+    final location = await api.convertToCoordinates(_twaController.text).execute();
     setState(() {
       _markers.clear();
 
@@ -74,12 +70,10 @@ class _ConvertToCoordinatesPageState extends State<ConvertToCoordinatesPage> {
         String mTitle = '///${location.data()?.words}';
         String mDescription =
             'Coordinates: ${location.data()?.coordinates.lat}, ${location.data()?.coordinates.lng},\nNearest Place: ${location.data()?.nearestPlace}';
-        twaHolder =
-            '${location.data()?.coordinates.lat}, ${location.data()?.coordinates.lng}';
+        twaHolder = '${location.data()?.coordinates.lat}, ${location.data()?.coordinates.lng}';
         print(twaHolder);
         addMarker(mLatLng, mTitle, mDescription);
-        mapController.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(target: mLatLng, zoom: 17)));
+        mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: mLatLng, zoom: 17)));
       } else {
         twaHolder = '${location.error()?.code}: ${location.error()?.message}';
         print(twaHolder);
@@ -100,8 +94,7 @@ class _ConvertToCoordinatesPageState extends State<ConvertToCoordinatesPage> {
   }
 
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-    onPrimary: Colors.blue,
-    primary: Colors.blue[100],
+    foregroundColor: Colors.blue,
     minimumSize: const Size(58, 58),
     padding: const EdgeInsets.symmetric(horizontal: 10),
   );
@@ -125,7 +118,6 @@ class _ConvertToCoordinatesPageState extends State<ConvertToCoordinatesPage> {
             initialCameraPosition: _initialPosition,
             onMapCreated: _onMapCreated,
             markers: _markers,
-            
           ),
           Container(
             margin: const EdgeInsets.only(top: 80, right: 10),
@@ -193,6 +185,5 @@ class ConvertToCoordinatesPage extends StatefulWidget {
   const ConvertToCoordinatesPage({Key? key}) : super(key: key);
 
   @override
-  _ConvertToCoordinatesPageState createState() =>
-      _ConvertToCoordinatesPageState();
+  _ConvertToCoordinatesPageState createState() => _ConvertToCoordinatesPageState();
 }

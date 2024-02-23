@@ -1,6 +1,7 @@
-import 'package:what3words/what3words.dart';
-import 'package:test/test.dart';
 import 'dart:io' show Platform;
+
+import 'package:test/test.dart';
+import 'package:what3words/what3words.dart';
 
 void main() {
   var api = What3WordsV3(Platform.environment['W3W_API_KEY']!);
@@ -14,8 +15,7 @@ void main() {
   });
 
   test('validCoordsTest', () async {
-    var locationRequest =
-        await api.convertTo3wa(Coordinates(51.520847, -0.19552100)).execute();
+    var locationRequest = await api.convertTo3wa(Coordinates(51.520847, -0.19552100)).execute();
     expect(locationRequest.isSuccessful(), true);
     var location = locationRequest.data()!;
     expect('filled.count.soap', location.words);

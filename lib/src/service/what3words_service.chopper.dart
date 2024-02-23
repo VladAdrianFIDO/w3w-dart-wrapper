@@ -19,7 +19,7 @@ class _$What3WordsV3Service extends What3WordsV3Service {
   @override
   Future<Response<Language>> availableLanguages() {
     final $url = 'available-languages';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $request = Request('GET', Uri.parse($url), client.baseUrl);
     return client.send<Language, Language>($request);
   }
 
@@ -27,19 +27,15 @@ class _$What3WordsV3Service extends What3WordsV3Service {
   Future<Response<Location>> convertToCoordinates(String words) {
     final $url = 'convert-to-coordinates';
     final $params = <String, dynamic>{'words': words};
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $request = Request('GET', Uri.parse($url), client.baseUrl, parameters: $params);
     return client.send<Location, Location>($request);
   }
 
   @override
-  Future<Response<Location>> convertTo3wa(
-      String coordinates, String? language) {
+  Future<Response<Location>> convertTo3wa(String coordinates, String? language) {
     final $url = 'convert-to-3wa';
-    final $params = <String, dynamic>{
-      'coordinates': coordinates,
-      'language': language
-    };
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $params = <String, dynamic>{'coordinates': coordinates, 'language': language};
+    final $request = Request('GET', Uri.parse($url), client.baseUrl, parameters: $params);
     return client.send<Location, Location>($request);
   }
 
@@ -47,7 +43,7 @@ class _$What3WordsV3Service extends What3WordsV3Service {
   Future<Response<GridSection>> gridSection(String boundingBox) {
     final $url = 'grid-section';
     final $params = <String, dynamic>{'bounding-box': boundingBox};
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $request = Request('GET', Uri.parse($url), client.baseUrl, parameters: $params);
     return client.send<GridSection, GridSection>($request);
   }
 
@@ -78,7 +74,7 @@ class _$What3WordsV3Service extends What3WordsV3Service {
       'language': lang,
       'prefer-land': preferLand
     };
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $request = Request('GET', Uri.parse($url), client.baseUrl, parameters: $params);
     return client.send<Autosuggest, Autosuggest>($request);
   }
 
@@ -109,9 +105,8 @@ class _$What3WordsV3Service extends What3WordsV3Service {
       'language': lang,
       'prefer-land': preferLand
     };
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
-    return client
-        .send<AutosuggestWithCoordinates, AutosuggestWithCoordinates>($request);
+    final $request = Request('GET', Uri.parse($url), client.baseUrl, parameters: $params);
+    return client.send<AutosuggestWithCoordinates, AutosuggestWithCoordinates>($request);
   }
 
   @override
@@ -147,7 +142,7 @@ class _$What3WordsV3Service extends What3WordsV3Service {
       'language': lang,
       'prefer-land': preferLand
     };
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $request = Request('GET', Uri.parse($url), client.baseUrl, parameters: $params);
     return client.send<String, String>($request);
   }
 }
